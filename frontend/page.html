@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+</head>
+<html>
+<body>
+    <h1>Đọc chữ từ PDF</h1>
+    <!-- <button type="button" onclick="read_file()">
+        Tải ảnh lên
+    </button> -->
+    <label for="myFile">Chọn file tải lên:</label>
+
+    <form enctype="multipart/form-data" action="http://localhost:12345/read/pdf/tika" method="POST" id="myForm">
+        <input type="file" id="myFile">
+        Đọc ảnh: 
+        <input type="submit" value="Upload File"/>
+    </form>
+
+    <p id="ketquahead">
+        <small>
+            Kết quả đọc sẽ hiển thị dưới đây
+        </small>
+    </p>
+
+    <script src="prompt_upload.js"></script>
+
+<body>
+<html>

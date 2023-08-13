@@ -1,0 +1,604 @@
+{
+	"info": {
+		"_postman_id": "d20608a1-85b5-405f-9aa2-8b991b89614f",
+		"name": "FastAPI Text Recognizer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "python api",
+			"item": [
+				{
+					"name": "get results",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/return",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"return"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_autogen_img",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/read/auto_image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"auto_image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_test_img",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/read/test_set",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"test_set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_custom_img",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/pic_test3.png"
+								},
+								{
+									"key": "body",
+									"value": "dies of cringe",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/read/custom",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"custom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read_pdf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "dame da ne",
+									"type": "text"
+								},
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/VanBanGoc_41.2017.NQ.QH14.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/read/pdf",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate_pdf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "Abstract—In this paper, we propose a high-speed greedy sequential algorithm for the vertex coloring problem (VCP),\nbased on the Wave Function Collapse algorithm, called Wave\nFunction Collapse Coloring (WFC-C). An iteration of this\nalgorithm goes through three distinct phases: vertex selection,\ncolor restriction through wave function collapsing, and domain\npropagation. In effect, WFC-C propagates color choices or\n”domain” restrictions beyond immediate neighbourhoods. This\nheuristic, combined with a series of other greedy optimizations,\nallows for a fast algorithm that prevents certain color conflicts.\nThrough extensive experiments, we show that WFC-C remains\ncompetitive (and occasionally better) in terms of optimal coloring, and dramatically outperforms existing high-speed VCP,\nwith on average speed differences ranging from 2000 times to\n16000 times, on the most difficult instances of the DIMACS\nbenchmark.\n1. Introduction\nThe Vertex Coloring Problem (VCP), a sub-problem of\nthe Graph Coloring Problem, is an NP-hard combinatorics\noptimization problem with a wide range of applications,\nstudied extensively in literature. VCP asks, in essence, to\nassign a color to every vertex such that no adjacent vertex\nshares a color. A common extension of the VCP is to find the\nminimum number of colors to create a valid coloring, called\nthe chromatic number χ(G). Examples of this problem’s\napplications include frequency assignment in networks [1],\n[2]; timetabling [3], [4]; register allocation in compilers [5],\n[6]. See [7] or [8] for a survey on the applications of VCP.\nWhile exact approaches to solving the VCP exist [9], [10],\n[11], [12], they are impractical for real-life applications\nas exact algorithms are unable to solve large graphs due\nto the amount of time required. Thus, researchers tend to\nconcentrate on heuristic solutions. Traditionally, heuristic\nand metaheuristic algorithms for VCP can be split into three\ndistinct categories: constructive approaches [13], [14], [15];\nlocal searching (including simulated annealing [16], quantum annealing [17], tabu search [18], [19], [20], variable\nneighborhood searching [21]); and population-based approaches [22], [23], [24], [25], [26]. More recently, modern\napproaches have incorporated machine and statistical learning techniques. For example, [27] introduces a populationbased approach with gradient descent optimization, and [28]\nuses probability learning on a local search algorithm to\nproduce more optimal colorings. An exhaustive study of\npopular heuristic methods can be found in [29].\nHowever, with the exception of sequential construction\nalgorithms, modern literature places an emphasis on optimal\ncoloring as opposed to time efficiency. Despite this focus on\noptimal coloring, fast graph coloring is essential in a large\nnumber of applications, such as computing the upper bounds\nin branch-and-bound algorithms for the maximum cliche\nproblem [30], [31], or to use graph coloring-based compression techniques to speed up automatic differentiation [32],\n[33]. Many hybrid VCP algorithms use fast but inaccurate\nvertex coloring algorithms to generate a high estimate of the\nchromatic number and repeatedly lower this until a legal k-coloring cannot be reached while other algorithms optimize\nthe initial, inaccurate coloring directly [17], [18], [19], [21],\n[22], [28]. In such applications, speed is more important\nthan achieving an optimal coloring. Despite modern literature’s focus on optimal VCP algorithms, high-speed vertex\ncoloring is still vital to many crucial applications.\nApproaches to high-speed VCP solutions generally consist of greedy and constructive algorithms. These algorithms\niterate through a set of all vertices, assigning a color following some rules until a valid coloring is reached. Once a\ncoloring is assigned, it is not reconsidered. Most effective\nhigh-speed VCP algorithms employ a dynamic ordering\nof vertices to produce more optimal coloring. Famous examples of these high-speed VCP algorithms are maximum\nsaturation degree (DSatur) [13], recursive largest first (RLF)\n[14], and the iterated greedy algorithm (IG) [15]. These are\nthe algorithms we compare our novel algorithm to. More recently, an algorithm proposed by [34] implements a greedystyle algorithm using bit-wise operations to increase time\nefficiency. However, the majority of these fast VCP solutions\ndo not restrict colors of vertices beyond the immediate\nneighborhood, nor is there any metaheuristic processing to\noptimize coloring.\nIn this paper, we present a fast heuristic vertex coloring\nalgorithm, hereafter called Wave Function Collapse Coloring (WFC-C). The key contribution provided in WFC-C is\nthe propagation of color restrictions beyond the immediate neighborhood. Computational results show that WFC",
+									"type": "text"
+								},
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/Doc1.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/validate/pdf",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"validate",
+								"pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "thread test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/test/threads",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"test",
+								"threads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read pdf send to tika",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "lmao",
+									"type": "default"
+								},
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/4771-kgvx.signed.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/read/pdf/tika",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"pdf",
+								"tika"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read image send to tika",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "oof",
+									"type": "default"
+								},
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/vpcp.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{line_sep_host}}/read/image/tika",
+							"host": [
+								"{{line_sep_host}}"
+							],
+							"path": [
+								"read",
+								"image",
+								"tika"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read pdf send to keras",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "lmao",
+									"type": "default"
+								},
+								{
+									"key": "uploaded_file",
+									"type": "file",
+									"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/4771-kgvx.signed.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/read/pdf/keras",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"read",
+								"pdf",
+								"keras"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test tesseract api",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept-encoding": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{tesseract_host}}/tesseract/image",
+					"host": [
+						"{{tesseract_host}}"
+					],
+					"path": [
+						"tesseract",
+						"image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesseract custom image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "PageSegMode",
+						"value": "3",
+						"type": "default"
+					},
+					{
+						"key": "Language",
+						"value": "vie",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "params",
+							"value": "asdf",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/vpcp.png"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{tesseract_host}}/tesseract/upload",
+					"host": [
+						"{{tesseract_host}}"
+					],
+					"path": [
+						"tesseract",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesseract paragraph extract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "params",
+							"value": "omaigah",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/vpcp.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{tesseract_para_host}}/tess/paragraph/upload",
+					"host": [
+						"{{tesseract_para_host}}"
+					],
+					"path": [
+						"tess",
+						"paragraph",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesseract pdf",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "none",
+							"type": "default"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/1682676955_BCTC_DA_SOAT_XET_-_HOP_NHAT_VN_-_31.03_.23_.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{pdf_extract_host}}/tesseract/pdf",
+					"host": [
+						"{{pdf_extract_host}}"
+					],
+					"path": [
+						"tesseract",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesseract pdf async",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "none",
+							"type": "default"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/4771-kgvx.signed.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{pdf_extract_host}}/tesseract/pdf/async",
+					"host": [
+						"{{pdf_extract_host}}"
+					],
+					"path": [
+						"tesseract",
+						"pdf",
+						"async"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesseract pdf para async",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "none",
+							"type": "default"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/toanlh-10/Documents/Git/keras_demo/test_set/1682676955_BCTC_DA_SOAT_XET_-_HOP_NHAT_VN_-_31.03_.23_.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{pdf_extract_host}}/tesseract/pdf",
+					"host": [
+						"{{pdf_extract_host}}"
+					],
+					"path": [
+						"tesseract",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tesstest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{testtess}}/testtess",
+					"host": [
+						"{{testtess}}"
+					],
+					"path": [
+						"testtess"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://127.0.0.1:15000",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "http://10.14.190.14:15000",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "http://10.14.190.14:12345",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "http://0.0.0.0:12345",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "http://10.15.10.122:12321",
+			"type": "default"
+		},
+		{
+			"key": "line_sep_host",
+			"value": "http://10.14.222.194:12345",
+			"type": "default"
+		},
+		{
+			"key": "line_sep_host",
+			"value": "http://10.14.222.194:32123",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "tesseract_host",
+			"value": "http://10.14.222.194:12321",
+			"type": "default"
+		},
+		{
+			"key": "tesseract_para_host",
+			"value": "http://10.14.222.194:8080",
+			"type": "default"
+		},
+		{
+			"key": "pdf_extract_host",
+			"value": "http://10.15.10.122:32123",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "pdf_extract_host",
+			"value": "http://localhost:12321",
+			"type": "default"
+		},
+		{
+			"key": "testtess",
+			"value": "http://localhost:12323",
+			"type": "default"
+		}
+	]
+}

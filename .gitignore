@@ -1,0 +1,9 @@
+/.venv
+fonts.zip
+/fonts
+/__pycache__
+/__pycache__/*
+**/*.pyc
+/tesseract_api_java/tesseract-paragraph-extract/target/
+/tesseract_api_java/pdf-image-extract/${compile.directory}/pdf-image-extract/target/
+/ocr_tester/generated_test/*
